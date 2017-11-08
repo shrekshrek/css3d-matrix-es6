@@ -6,10 +6,6 @@ function Scene () {
 
     this.type = 'Scene';
 
-    this.background = null;
-
-    this.autoUpdate = true;
-
 }
 
 Scene.prototype = Object.assign( Object.create( Object3D.prototype ), {
@@ -17,7 +13,6 @@ Scene.prototype = Object.assign( Object.create( Object3D.prototype ), {
     constructor: Scene,
 
 } );
-
 
 
 export { Scene };

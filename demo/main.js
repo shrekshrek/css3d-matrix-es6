@@ -1,11 +1,12 @@
 import {Camera} from '../src/core/Camera';
 import {Scene} from '../src/core/Scene';
+import {Group} from '../src/core/Group';
 import {Vector3} from '../src/math/Vector3';
 import {CssRenderer} from '../src/renderer/CssRenderer';
 import {CssObject} from '../src/renderer/CssObject';
 import {CssSprite} from '../src/renderer/CssSprite';
 
-var camera, scene, renderer;
+var camera, scene, renderer, group;
 
 var particlesTotal = 64;
 var objects = [];
@@ -16,10 +17,13 @@ animate();
 function init() {
 
     camera = new Camera(75);
-    camera.position.set(0, 800, 1500);
+    camera.position.set(0, 100, 1500);
     camera.lookAt(new Vector3());
 
     scene = new Scene();
+    group = new Group();
+
+    scene.add(group);
 
     for (var i = 0; i < particlesTotal; i++) {
         var box = document.createElement('div');
@@ -29,7 +33,7 @@ function init() {
         object.position.x = Math.random() * 4000 - 2000;
         object.position.y = Math.random() * 4000 - 2000;
         object.position.z = Math.random() * 4000 - 2000;
-        scene.add(object);
+        group.add(object);
 
         objects.push(object);
 
@@ -43,7 +47,7 @@ function init() {
         object.position.x = Math.random() * 4000 - 2000;
         object.position.y = Math.random() * 4000 - 2000;
         object.position.z = Math.random() * 4000 - 2000;
-        scene.add(object);
+        group.add(object);
 
         objects.push(object);
 
@@ -73,7 +77,9 @@ function animate() {
 
     var time = performance.now();
 
-    camera.position.x = Math.sin(time*0.001) * 500;
+    // camera.position.x = Math.sin(time * 0.001) * 500;
+
+    group.rotation.y = time * 0.0005;
 
     for (var i = 0, l = objects.length; i < l; i++) {
 

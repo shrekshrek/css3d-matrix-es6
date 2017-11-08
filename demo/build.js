@@ -2087,10 +2087,11 @@ CssSprite.prototype = Object.assign(Object.create(__WEBPACK_IMPORTED_MODULE_0__C
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_core_Camera__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_core_Scene__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_math_Vector3__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_renderer_CssRenderer__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_renderer_CssObject__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_renderer_CssSprite__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_core_Group__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_math_Vector3__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_renderer_CssRenderer__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_renderer_CssObject__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_renderer_CssSprite__ = __webpack_require__(6);
 
 
 
@@ -2098,7 +2099,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var camera, scene, renderer;
+
+var camera, scene, renderer, group;
 
 var particlesTotal = 64;
 var objects = [];
@@ -2109,20 +2111,23 @@ animate();
 function init() {
 
     camera = new __WEBPACK_IMPORTED_MODULE_0__src_core_Camera__["a" /* Camera */](75);
-    camera.position.set(0, 800, 1500);
-    camera.lookAt(new __WEBPACK_IMPORTED_MODULE_2__src_math_Vector3__["a" /* Vector3 */]());
+    camera.position.set(0, 100, 1500);
+    camera.lookAt(new __WEBPACK_IMPORTED_MODULE_3__src_math_Vector3__["a" /* Vector3 */]());
 
     scene = new __WEBPACK_IMPORTED_MODULE_1__src_core_Scene__["a" /* Scene */]();
+    group = new __WEBPACK_IMPORTED_MODULE_2__src_core_Group__["a" /* Group */]();
+
+    scene.add(group);
 
     for (var i = 0; i < particlesTotal; i++) {
         var box = document.createElement('div');
         box.className = "red";
 
-        var object = new __WEBPACK_IMPORTED_MODULE_5__src_renderer_CssSprite__["a" /* CssSprite */](box);
+        var object = new __WEBPACK_IMPORTED_MODULE_6__src_renderer_CssSprite__["a" /* CssSprite */](box);
         object.position.x = Math.random() * 4000 - 2000;
         object.position.y = Math.random() * 4000 - 2000;
         object.position.z = Math.random() * 4000 - 2000;
-        scene.add(object);
+        group.add(object);
 
         objects.push(object);
 
@@ -2132,17 +2137,17 @@ function init() {
         var box = document.createElement('div');
         box.className = "blue";
 
-        var object = new __WEBPACK_IMPORTED_MODULE_4__src_renderer_CssObject__["a" /* CssObject */](box);
+        var object = new __WEBPACK_IMPORTED_MODULE_5__src_renderer_CssObject__["a" /* CssObject */](box);
         object.position.x = Math.random() * 4000 - 2000;
         object.position.y = Math.random() * 4000 - 2000;
         object.position.z = Math.random() * 4000 - 2000;
-        scene.add(object);
+        group.add(object);
 
         objects.push(object);
 
     }
 
-    renderer = new __WEBPACK_IMPORTED_MODULE_3__src_renderer_CssRenderer__["a" /* CssRenderer */]();
+    renderer = new __WEBPACK_IMPORTED_MODULE_4__src_renderer_CssRenderer__["a" /* CssRenderer */]();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.domElement.style.position = 'absolute';
     document.getElementById('container').appendChild(renderer.domElement);
@@ -2166,7 +2171,9 @@ function animate() {
 
     var time = performance.now();
 
-    camera.position.x = Math.sin(time*0.001) * 500;
+    // camera.position.x = Math.sin(time * 0.001) * 500;
+
+    group.rotation.y = time * 0.0005;
 
     for (var i = 0, l = objects.length; i < l; i++) {
 
@@ -2694,10 +2701,6 @@ function Scene () {
 
     this.type = 'Scene';
 
-    this.background = null;
-
-    this.autoUpdate = true;
-
 }
 
 Scene.prototype = Object.assign( Object.create( __WEBPACK_IMPORTED_MODULE_0__Object3D__["a" /* Object3D */].prototype ), {
@@ -2705,7 +2708,6 @@ Scene.prototype = Object.assign( Object.create( __WEBPACK_IMPORTED_MODULE_0__Obj
     constructor: Scene,
 
 } );
-
 
 
 
@@ -2892,6 +2894,33 @@ function CssRenderer() {
     };
 
 }
+
+
+
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Group; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_Object3D__ = __webpack_require__(4);
+
+
+function Group() {
+
+	__WEBPACK_IMPORTED_MODULE_0__core_Object3D__["a" /* Object3D */].call( this );
+
+	this.type = 'Group';
+
+}
+
+Group.prototype = Object.assign( Object.create( __WEBPACK_IMPORTED_MODULE_0__core_Object3D__["a" /* Object3D */].prototype ), {
+
+	constructor: Group
+
+} );
 
 
 
