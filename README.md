@@ -6,5 +6,21 @@
 注意：因为最终使用的是CSS 3D渲染，所以渲染流程不涉及常规MVP中的P变换。
 
 
+API:  
+M3D.Object3D();  
+M3D.Scene();  
+M3D.Camera();  
+M3D.Group();  
+M3D.Math();  
+M3D.Euler();  
+M3D.Matrix3();  
+M3D.Matrix4();  
+M3D.Quaternion();  
+M3D.Vector3();  
+M3D.CssSprite();  
+M3D.CssObject();  
+M3D.CssRenderer();  
+
+
 
 欢迎研讨。QQ群:572807793（webgl技术交流）  
