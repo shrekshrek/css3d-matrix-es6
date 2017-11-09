@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <head>
     <style>
-        body{
+        body {
             margin: 0px;
         }
 
@@ -22,6 +22,95 @@
 
 <div id="container"></div>
 
-<!--<script src="main.js"></script>-->
-<script src="./build.js"></script>
+<script src="../build/m3d.js"></script>
+<script>
+    var camera, scene, renderer, group;
+
+    var particlesTotal = 64;
+    var objects = [];
+
+    init();
+    animate();
+
+    function init() {
+
+        camera = new M3D.Camera(75);
+        camera.position.set(0, 100, 1500);
+        camera.lookAt(new M3D.Vector3());
+
+        scene = new M3D.Scene();
+        group = new M3D.Group();
+
+        scene.add(group);
+
+        for (var i = 0; i < particlesTotal; i++) {
+            var box = document.createElement('div');
+            box.className = "red";
+
+            var object = new M3D.CssSprite(box);
+            object.position.x = Math.random() * 4000 - 2000;
+            object.position.y = Math.random() * 4000 - 2000;
+            object.position.z = Math.random() * 4000 - 2000;
+            group.add(object);
+
+            objects.push(object);
+
+        }
+
+        for (var i = 0; i < particlesTotal; i++) {
+            var box = document.createElement('div');
+            box.className = "blue";
+
+            var object = new M3D.CssObject(box);
+            object.position.x = Math.random() * 4000 - 2000;
+            object.position.y = Math.random() * 4000 - 2000;
+            object.position.z = Math.random() * 4000 - 2000;
+            group.add(object);
+
+            objects.push(object);
+
+        }
+
+        renderer = new M3D.CssRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.domElement.style.position = 'absolute';
+        document.getElementById('container').appendChild(renderer.domElement);
+
+
+        window.addEventListener('resize', onWindowResize, false);
+
+    }
+
+    function onWindowResize() {
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+    }
+
+
+    function animate() {
+
+        requestAnimationFrame(animate);
+
+
+        var time = performance.now();
+
+        // camera.position.x = Math.sin(time * 0.001) * 500;
+
+        group.rotation.y = time * 0.0005;
+
+        for (var i = 0, l = objects.length; i < l; i++) {
+
+            var object = objects[i];
+            var scale = Math.sin(( Math.floor(object.position.x) + time ) * 0.002) * 0.3 + 1;
+            object.scale.set(scale, scale, scale);
+
+        }
+
+        renderer.render(scene, camera);
+
+    }
+</script>
+
+
 </body>
