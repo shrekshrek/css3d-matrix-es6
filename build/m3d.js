@@ -1,3 +1,8 @@
+/*!
+ * GIT:https://github.com/shrekshrek/css3d-matrix-es6
+ * @author: Shrek.wang
+ **/
+
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
