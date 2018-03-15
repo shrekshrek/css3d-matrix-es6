@@ -1,6 +1,5 @@
 /*!
  * GIT:https://github.com/shrekshrek/css3d-matrix-es6
- * @author: Shrek.wang
  **/
 
 (function (global, factory) {
